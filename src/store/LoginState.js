@@ -4,6 +4,14 @@ import AuthContext from "./authContext"
 
 const LoginState=({children})=>{
     const [accessKey ,setAccessKey]=useState(null)
+    const [errorTextLogin, setErrorTextLogin] = useState(null);
+    const [contactList, setContactList] = useState(null);
+
+
+
+
+
+
 
     const removeAccessToken = () => {
       localStorage.removeItem('accessToken');
@@ -15,16 +23,25 @@ const LoginState=({children})=>{
 
       const storeAccessToken = (accessToken) => {
      
-        const key =  localStorage.setItem("accessToken",accessToken);
-        if(key){
-        setAccessKey(key);
-    }
+         localStorage.setItem("accessToken",accessToken);
+       
+        if(accessToken){
+        setAccessKey(accessToken);
+        console.log(accessKey)
+    };
+  }
+
+    const getTokenLocalStorage=()=>{
+      const key =localStorage.getItem("accessToken");
+      console.log ("localStorage" ,key);
+      setAccessKey(key);
+    
   
 
   };
 
     return (
-        <AuthContext.Provider value={{accessKey,removeAccessToken,storeAccessToken}}>
+        <AuthContext.Provider value={{accessKey ,setAccessKey,errorTextLogin, setErrorTextLogin,contactList, setContactList,removeAccessToken,storeAccessToken ,getTokenLocalStorage}}>
             {children}
         </AuthContext.Provider>
     )

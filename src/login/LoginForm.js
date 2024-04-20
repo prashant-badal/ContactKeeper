@@ -1,66 +1,35 @@
 // LoginForm.js
 import React, { useContext, useState } from 'react';
 import './LoginForm.css'; // Import CSS file for styling
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+
+
 import AuthContext from '../store/authContext';
+import useLoginToken from '../hooks/useLoginToken';
 
 const LoginForm = () => {
-  const { storeAccessKey } = useContext(AuthContext);
+ const { accessKey,errorTextLogin,} = useContext(AuthContext);
+ const LoginApiCall=useLoginToken()
+ 
   const [formData, setFormData] = useState({
   
     email: '',
     password: ''
   });
-  const [errorText, setErrorText] = useState(null);
-  const navigate = useNavigate();
+ 
 
+
+  // console.log(accessKey)
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit =  (e) => {
+
     e.preventDefault();
-    try {
-      const response = await axios.post('http://localhost:5001/api/user/login', formData);
-      console.log(response)
-      const { accessToken } = response.data;
-      console.log(accessToken)
-      storeAccessKey(accessToken);
-      navigate('/contactList');
-    } catch (error) {
-      setErrorText(error.response?.data?.message);
-    }
+    LoginApiCall(formData);
+
   };
-// const {storeAccessKey} =useContext(AuthContext)
-//   const [formData, setFormData] = useState({
-//     email: '',
-//     password: ''
-//   });
 
-//   const [errorText,setErrorText]=useState(null);
-//   const navigate=useNavigate();
-
-//   const handleChange = (e) => {
-//     setFormData({ ...formData, [e.target.name]: e.target.value });
-//   };
-
-//   const handleSubmit = async(e) => {
-//     e.preventDefault();
-//     // const [email,password]=formData;
-//     // Handle form submission here (e.g., send data to backend API)
-//      await axios.post('http://localhost:5001/api/user/login', formData)
-//       .then(function (response) {
-//         const { accessToken } =  response.data; // Assuming the access token is returned in the response
-//        storeAccessKey(accessToken)
-//         navigate('/contactList')
-//       })
-//       .catch(function (error) {
-//         setErrorText(error.response.data.message);
-//       });
-
-//     console.log(formData);
-//   };
 
   return (
     <div className="login-container">
@@ -86,7 +55,7 @@ const LoginForm = () => {
             required
           />
         </div>
-        {errorText && <div style={{ color: 'red' }}>{errorText}</div>} 
+        {errorTextLogin && <div style={{ color: 'red' }}>{errorTextLogin}</div>} 
         <button type="submit" className="login-btn">Login</button>
       </form>
     </div>
