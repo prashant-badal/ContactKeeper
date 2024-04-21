@@ -23,8 +23,8 @@ const {contactList,setContactList}=useContext(AuthContext)
   });
 
   
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleChange = (event) => {
+    setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
   const handleAddContact = () => {
