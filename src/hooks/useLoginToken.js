@@ -10,7 +10,7 @@ const useLoginToken = (formData) => {
 
     const getTokenData=async(formData)=>{
         try {
-            const response = await axios.post('http://localhost:5001/api/user/login', formData);
+            const response = await axios.post('/api/user/login', formData);
             console.log(response);
             console.log(accessKey);
             const { accessToken } = response.data;

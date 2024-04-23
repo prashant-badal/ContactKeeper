@@ -8,7 +8,8 @@ import useAddContact from '../hooks/useAddContact';
 
 const ContactList = () => {
   useContacts();
-  const {addContact}=useAddContact()
+  const addContact=useAddContact()
+
 
 const {contactList,setContactList}=useContext(AuthContext)
 
@@ -56,7 +57,7 @@ const {contactList,setContactList}=useContext(AuthContext)
           </tr>
         </thead>
         <tbody>
-          {contactList.map(contact => (
+          { contactList.map(contact => (
             <tr key={contact._id}>
               <td>{contact.name}</td>
               <td>{contact.email}</td>
@@ -71,7 +72,7 @@ const {contactList,setContactList}=useContext(AuthContext)
       </table>
       <div className="add-contact-form">
         <h3>{formData.id ? 'Update Contact' : 'Add Contact'}</h3>
-        <input type="hidden" name="id" value={formData.id || ''} />
+        {/* <input type="hidden" name="id" value={formData.id || ''} /> */}
         <input type="text" name="name" placeholder="Name" value={formData.name} onChange={handleChange} />
         <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} />
         <input type="text" name="phone" placeholder="Phone" value={formData.phone} onChange={handleChange} />

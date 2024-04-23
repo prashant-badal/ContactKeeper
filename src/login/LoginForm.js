@@ -5,6 +5,7 @@ import './LoginForm.css'; // Import CSS file for styling
 
 import AuthContext from '../store/authContext';
 import useLoginToken from '../hooks/useLoginToken';
+import { Link } from 'react-router-dom';
 
 const LoginForm = () => {
  const { accessKey,errorTextLogin,} = useContext(AuthContext);
@@ -57,6 +58,7 @@ const LoginForm = () => {
         </div>
         {errorTextLogin && <div style={{ color: 'red' }}>{errorTextLogin}</div>} 
         <button type="submit" className="login-btn">Login</button>
+        <span>Create New Account <Link to='/signUp'>SignUp</Link></span>
       </form>
     </div>
   );

@@ -1,15 +1,19 @@
 // SignupForm.js
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './SignUp.css'; // Import CSS file for styling
 import { Link } from 'react-router-dom';
+import AuthContext from '../store/authContext';
+import useSignUp from '../hooks/useSignUp';
 
 
 const SignupForm = () => {
+  const registerUser=useSignUp()
+  const { errorTextLogin,} = useContext(AuthContext);
   const [formData, setFormData] = useState({
     userName: '',
     email: '',
     password: '',
-    confirmPassword: ''
+  
   });
 
   const handleChange = (e) => {
@@ -18,7 +22,7 @@ const SignupForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission here (e.g., send data to backend API)
+    registerUser(formData)
     console.log(formData);
   };
 
@@ -59,7 +63,7 @@ const SignupForm = () => {
             required
           />
         </div>
-        
+        {errorTextLogin && <div style={{ color: 'red' }}>{errorTextLogin}</div>}
         <button type="submit" className="signup-btn">Sign Up</button>
         <span>Already have Account <Link to='/'>Login in</Link></span>
       </form>
