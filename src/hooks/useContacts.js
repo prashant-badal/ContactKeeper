@@ -9,8 +9,8 @@ const useContacts = () => {
 
 
     const getContactData= async()=>{
-      getTokenLocalStorage()
-      console.log("contPage ",accessKey)
+      // getTokenLocalStorage()
+      // console.log("contPage ",accessKey)
         try{
         
     
@@ -31,6 +31,7 @@ const useContacts = () => {
         }
     
         catch(error){
+          
           console.error('Error:', error.message);
         }
       }

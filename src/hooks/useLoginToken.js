@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react'
 import AuthContext from '../store/authContext';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 const useLoginToken = (formData) => {
     const { accessKey,storeAccessToken} = useContext(AuthContext);
@@ -16,12 +17,14 @@ const useLoginToken = (formData) => {
             const { accessToken } = response.data;
             console.log(accessToken);
             console.log("working ...here")
-            console.log(accessKey)
+
             storeAccessToken(accessToken)
+            toast.success(response?.data?.message)
          
             console.log(accessKey)
             navigate('/contactList');
           } catch (error) {
+            toast.error(error.response?.data?.message)
             setErrorTextLogin(error.response?.data?.message);
           }
 

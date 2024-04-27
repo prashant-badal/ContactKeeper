@@ -8,13 +8,14 @@ import useSignUp from '../hooks/useSignUp';
 
 const SignupForm = () => {
   const registerUser=useSignUp()
-  const { errorTextLogin,} = useContext(AuthContext);
+  const { errorTextLogin} = useContext(AuthContext);
   const [formData, setFormData] = useState({
-    userName: '',
+    username: '',
     email: '',
     password: '',
   
   });
+  
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -36,7 +37,7 @@ const SignupForm = () => {
         <div className="form-group">
           <input
             type="text"
-            name="userName"
+            name="username"
             placeholder="User Name"
             value={formData.userName}
             onChange={handleChange}

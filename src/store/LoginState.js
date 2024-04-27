@@ -2,12 +2,13 @@ import { useState } from "react";
 import AuthContext from "./authContext"
 
 
+
 const LoginState=({children})=>{
-    const [accessKey ,setAccessKey]=useState(null)
+    const [accessKey ,setAccessKey]=useState(localStorage.getItem("accessToken"))
     const [errorTextLogin, setErrorTextLogin] = useState(null);
-    const [contactList, setContactList] = useState(null);
+    const [contactList, setContactList] = useState([]);
 
-
+  const islogIn=!!accessKey;
 
 
 
@@ -15,7 +16,7 @@ const LoginState=({children})=>{
 
     const removeAccessToken = () => {
       localStorage.removeItem('accessToken');
-      
+      // navigate('/')
       };
 
 
@@ -23,11 +24,12 @@ const LoginState=({children})=>{
 
       const storeAccessToken = (accessToken) => {
      
-         localStorage.setItem("accessToken",accessToken);
+         
        
         if(accessToken){
         setAccessKey(accessToken);
         console.log(accessKey)
+        localStorage.setItem("accessToken",accessToken);
     };
   }
 
@@ -41,7 +43,7 @@ const LoginState=({children})=>{
   };
 
     return (
-        <AuthContext.Provider value={{accessKey ,setAccessKey,errorTextLogin, setErrorTextLogin,contactList, setContactList,removeAccessToken,storeAccessToken ,getTokenLocalStorage}}>
+        <AuthContext.Provider value={{islogIn,accessKey ,setAccessKey,errorTextLogin, setErrorTextLogin,contactList, setContactList,removeAccessToken,storeAccessToken ,getTokenLocalStorage}}>
             {children}
         </AuthContext.Provider>
     )

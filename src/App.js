@@ -8,6 +8,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import LoginState from './store/LoginState';
+import { Toaster } from 'react-hot-toast';
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,7 @@ function App() {
 
   </LoginState>
  
+  <Toaster />
 
     
     </>

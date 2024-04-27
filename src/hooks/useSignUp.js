@@ -1,24 +1,30 @@
 import React, { useContext, useEffect } from 'react'
 import AuthContext from '../store/authContext';
 import axios from 'axios';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 const useSignUp = (formData) => {
-    const {setErrorTextLogin} = useContext(AuthContext);
+    const navigate=useNavigate()
+    // const {setErrorTextLogin} = useContext(AuthContext);
     const registerUser=async(formData)=>{
         try {
             const response = await axios.post('http://localhost:5001/api/user/register', formData);
+            navigate('/')
+            toast.success("Sign up successful")
             console.log(response.data);
 
         }
         catch(error){
-            setErrorTextLogin(error.response?.data?.message);
+            toast.error(error.response?.data?.message)
+          
         }
     }
 
 
     useEffect(()=>{
         registerUser(formData)
-    })
+    },[])
 
 
   return registerUser
