@@ -9,7 +9,14 @@ import useEdit from '../hooks/useEdit';
 import useDelete from '../hooks/useDelete';
 
 const ContactList = () => {
-  const { contactList, setContactList } = useContext(AuthContext);
+  useContacts(); 
+  const { contactList,removeAccessToken ,isLogin } = useContext(AuthContext);
+console.log(contactList)
+  const navigate = useNavigate();
+  const UpdateContact = useEdit();
+  const DeleteContact = useDelete();
+  const addContact = useAddContact();
+ 
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -17,20 +24,17 @@ const ContactList = () => {
   });
   const [editContactId, setEditContactId] = useState("");
   const [editable, setEditable] = useState(false);
-  const navigate = useNavigate();
-  const UpdateContact = useEdit();
-  const DeleteContact = useDelete();
-  const { islogIn, removeAccessToken } = useContext(AuthContext);
-
-  useContacts();
-  const addContact = useAddContact();
+  const [searchResults, setSearchResults] = useState(contactList);
+  console.log(searchResults)
   const [searchTerm, setSearchTerm] = useState('');
-  const [searchResults, setSearchResults] = useState(contactList); // Initialize with contactList
 
+  useEffect(() => {
+    setSearchResults(contactList);
+  }, [contactList]);
+  
   const handleSearch = (event) => {
     const term = event.target.value;
     setSearchTerm(term);
-    // Filter items based on the search term
     const results = contactList.filter(contact => contact.name.toLowerCase().includes(term.toLowerCase()));
     setSearchResults(results);
   };
@@ -66,6 +70,7 @@ const ContactList = () => {
     removeAccessToken();
     navigate('/');
   };
+  if(isLogin)return navigate('/')
 
   return !searchResults && searchResults.length === 0 ? (<h1>Loading ...wait a while</h1>) : (<>
     <div className='bg'>

@@ -3,6 +3,7 @@ import AuthContext from '../store/authContext';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { server } from '../App';
 
 const useLoginToken = (formData) => {
     const { accessKey,storeAccessToken} = useContext(AuthContext);
@@ -11,7 +12,7 @@ const useLoginToken = (formData) => {
 
     const getTokenData=async(formData)=>{
         try {
-            const response = await axios.post('/api/user/login', formData);
+            const response = await axios.post(`${server}/api/user/login`, formData);
             console.log(response);
             console.log(accessKey);
             const { accessToken } = response.data;

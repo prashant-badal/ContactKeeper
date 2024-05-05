@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useContext, useEffect } from 'react';
 import AuthContext from '../store/authContext';
 import toast from 'react-hot-toast';
+import { server } from '../App';
 
 
 const useAddContact = () => {
@@ -26,7 +27,7 @@ const useAddContact = () => {
       };
 
       // Make the POST request to add the contact
-      const response = await axios.post('http://localhost:5001/api/contacts', formData, { headers });
+      const response = await axios.post(`${server}/api/contacts`, formData, { headers });
 
       // Assuming the response contains the added contact data
       console.log('Contact added:', response.data);

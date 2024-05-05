@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import axios from 'axios';
 import AuthContext from '../store/authContext';
 import toast from 'react-hot-toast';
+import { server } from '../App';
 
 const useUpdate = () => {
   const { setContactList, accessKey } = useContext(AuthContext);
@@ -20,7 +21,7 @@ const useUpdate = () => {
       console.log(id,updatedData)
 
       // Send PUT request to update contact
-      const response = await axios.put(`http://localhost:5001/api/contacts/${id}`, updatedData, { headers });
+      const response = await axios.put(`${server}/api/contacts/${id}`, updatedData, { headers });
 
       console.log(response)
 

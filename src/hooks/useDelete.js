@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import axios from 'axios';
 import AuthContext from '../store/authContext';
 import toast from 'react-hot-toast';
+import { server } from '../App';
 
 const useDelete = () => {
   const { contactList, setContactList, accessKey } = useContext(AuthContext);
@@ -18,7 +19,7 @@ const useDelete = () => {
       };
 
       // Send DELETE request to delete contact
-      await axios.delete(`http://localhost:5001/api/contacts/${id}`, { headers });
+      await axios.delete(`${server}/api/contacts/${id}`, { headers });
 
       // Update the contactList state by filtering out the deleted contact
       setContactList(prevContactList => prevContactList.filter(contact => contact._id !== id));

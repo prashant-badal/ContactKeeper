@@ -9,6 +9,9 @@ import {
 } from "react-router-dom";
 import LoginState from './store/LoginState';
 import { Toaster } from 'react-hot-toast';
+import ProtectedRoute from "../src/allroute/protectedRoute"
+
+export const server="https://mycontact-backend.onrender.com"
 
 const router = createBrowserRouter([
   {
@@ -21,10 +24,18 @@ const router = createBrowserRouter([
     path: "/signUp",
     element: <SignupForm/>,
   },
+
   {
-    path: "/contactList",
-    element: <ContactList/>,
+    
+    element: <ProtectedRoute/>,
+    children:[
+      {
+          path: "/contactList",
+          element: <ContactList/>,
+        },
+    ]
   },
+  
 
 ]);
 

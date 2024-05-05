@@ -1,15 +1,17 @@
-import React, { useContext } from 'react'
-import useContacts from '../hooks/useContacts'
-import AuthContext from '../store/authContext'
-import { NavLink, Outlet, Route } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { NavLink, Outlet } from 'react-router-dom';
+import AuthContext from '../store/authContext';
+import AlertProtect from '../alertProtected/AlertProtect';
 
-const protectedRoute = () => {
-const {islogIn}=useContext(AuthContext);
-
+const ProtectedRoute = () => {
+  const { islogIn } = useContext(AuthContext);
 
   return (
-   islogIn? <Outlet/> :<NavLink to={"/"}/>
-  )
-}
+    <>
+      
+      {islogIn ? <Outlet /> : <AlertProtect/>}
+    </>
+  );
+};
 
-export default protectedRoute
+export default ProtectedRoute;
